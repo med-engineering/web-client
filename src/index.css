@@ -1,13 +1,75 @@
-body {
+@import url("https://fonts.googleapis.com/css?family=Baloo+Paaji|Open+Sans:300,300i,400,400i,600,600i,700,700i");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  text-decoration: none;
+  list-style: none;
+  outline: none;
+  border: none;
+  font-family: "Open Sans", "Ubuntu";
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --primary: #008bd1;
+  --dark-1: #0e1016;
+  --dark-2: #151922;
+  --dark-2-lighter: #1a1f2a;
+  --dark-3: #293346;
+  --gray-1: #d0d1d3;
+  --gray-2: #8a8c91;
+  --gray-3: #5e6064;
+  --gray-4: #3f4145;
+  --gray-5: #2e3033;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+a {
+  color: currentColor;
+}
+
+body {
+  background-color: var(--dark-1);
+  color: var(--gray-1);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+main {
+  margin-top: 3.5rem;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--dark-3);
+  cursor: default;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dark-3);
 }
