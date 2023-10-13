@@ -1,3 +1,3 @@
-const pageSpacings = `max-w-[1600px] lg:px-6 sm:px-3 px-2 mx-auto`;
+const pageSpacings = `max-w-[1600px] lg:px-3 sm:px-2 px-2 mx-auto`;
 
 export { pageSpacings };

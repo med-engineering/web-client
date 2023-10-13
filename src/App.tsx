@@ -10,8 +10,8 @@ function App() {
         {
           <AuthPreCheck>
             <Routes>
-              <Route path="/login*" Component={LoginPage} />
-              <Route path="/dashboard*" Component={DashboardPage} />
+              <Route path="/login/*" Component={LoginPage} />
+              <Route path="/dashboard/*" Component={DashboardPage} />
             </Routes>
           </AuthPreCheck>
         }

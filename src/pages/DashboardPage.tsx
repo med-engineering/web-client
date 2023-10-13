@@ -1,17 +1,21 @@
 import { FC } from "react";
 import { Routes, Route } from "react-router-dom";
-import Stats from "./Dashboard/Stats";
-import SideBar from "../components/dashboard/SideBar";
+import NavBar from "../components/dashboard/NavBar";
+import ServicesList from "./Dashboard/Service/ServicesList";
+import Services from "./Dashboard/Services";
 
 const DashboardPage: FC = () => {
   return (
     <>
-      <SideBar />
-      <main className="fixed w-dashboard-content left-[300px] bottom-0 h-screen overflow-auto sm:px-4 px-2 py-3">
+      <NavBar />
+      <main className="fixed w-full bottom-0 h-[calc(100vh-60px)] overflow-auto sm:px-4 px-2 py-3">
         <Routes>
-          <Route path="/" element={<Stats />} />
+          <Route path="/" element={<ServicesList />} />
         </Routes>
       </main>
+      <Routes>
+        <Route path="/service/*" element={<Services />} />
+      </Routes>
     </>
   );
 };

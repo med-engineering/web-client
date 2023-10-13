@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PreLoaderScreen from "../loaders/PreLoaderScreen";
 import { useUserContext } from "../../contexts/UserContext";
-import OnChildrenMount from "./OnChildrenMount";
 
 interface AuthPreCheckProps {
   children: ReactNode;
@@ -24,18 +23,9 @@ const AuthPreCheck: FC<AuthPreCheckProps> = ({ children }) => {
     ) {
       navigate("/dashboard", { replace: true });
     }
+    setIsDoneRendering(true);
   }, [isFirstUserFetch, user, token]);
-  return (
-    <>
-      {!isDoneRendering && <PreLoaderScreen />}
-      {!isFirstUserFetch && (
-        <OnChildrenMount
-          children={children}
-          onMount={() => setIsDoneRendering(true)}
-        />
-      )}
-    </>
-  );
+  return <>{isDoneRendering ? children : <PreLoaderScreen />}</>;
 };
 
 export default AuthPreCheck;

@@ -26,11 +26,11 @@ const Button: FC<ButtonProps> = ({
         width: width === "max" ? "max-content" : "100%",
       }}
       onClick={isLoading || isDisabled ? undefined : onClick}
-      className={`bg-primary relative ${
+      className={`bg-primary relative px-6 ${
         isDisabled || isLoading
           ? "cursor-not-allowed opacity-90"
           : "cursor-pointer hover:opacity-90 active:scale-[.99]"
-      } duration-200 py-3 rounded-md mt-3`}
+      } duration-200 py-[10px] rounded-md mt-3`}
     >
       <div
         style={{

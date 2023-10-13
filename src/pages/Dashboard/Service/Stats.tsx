@@ -1,16 +1,16 @@
 import { FC } from "react";
-import machineIcon from "../../assets/machine.svg";
-import { pageSpacings } from "../../styles";
-import StateCard from "../../components/dashboard/StateCard";
-import DashboardLineChart from "../../components/dashboard/DashboardLineChart";
-import DashboardBarsChart from "../../components/dashboard/DashboardBarsChart";
-import DashboardPieChart from "../../components/dashboard/DashboardPieChart";
-import AuthChecker from "../../components/Auth/AuthChecker";
+import machineIcon from "../../../assets/machine.svg";
+import { pageSpacings } from "../../../styles";
+import StateCard from "../../../components/dashboard/StateCard";
+import DashboardLineChart from "../../../components/dashboard/DashboardLineChart";
+import DashboardBarsChart from "../../../components/dashboard/DashboardBarsChart";
+import DashboardPieChart from "../../../components/dashboard/DashboardPieChart";
+import AuthChecker from "../../../components/Auth/AuthChecker";
 
 const Stats: FC = () => {
   return (
     <div className={`${pageSpacings}`}>
-      <div className="grid grid-cols-state-card gap-6 mt-4">
+      <div className="grid grid-cols-cards gap-6 mt-4">
         <StateCard name="State 1 (24h)" value={34} icon={machineIcon} />
         <StateCard name="State 1 " value={234} icon={machineIcon} />
         <StateCard name="State 2" value={64} icon={machineIcon} />
