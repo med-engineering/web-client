@@ -47,7 +47,7 @@ const LabeledInput: FC<LabeledInputProps> = ({
             borderBottomStyle: "solid",
             borderBottomWidth: "1px",
           }}
-          className={`bg-transparent w-full peer border-gray-4 duration-200 px-1 pb-2 pt-2 ${
+          className={`bg-transparent w-full peer border-gray-4 text-[15px] duration-200 px-1 pb-2 pt-3 ${
             error
               ? "border-red-600"
               : `hover:border-primary focus:border-primary ${

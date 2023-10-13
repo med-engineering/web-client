@@ -14,7 +14,7 @@ const ServicesList: FC<ServicesListProps> = () => {
   const { fetchConfig, user } = useUserContext();
   const [services, setServices] = useState(CARDS_LOADING_ARRAY);
   const [isLoading, setIsLoading] = useState(true);
-  const [hasManagingPermission, setHasManagingPermission] = useState(
+  const [hasManagingPerms, setHasManagingPerms] = useState(
     checkPerms(user, "services", true)
   );
   useEffect(() => {
@@ -34,11 +34,11 @@ const ServicesList: FC<ServicesListProps> = () => {
   }, []);
 
   useEffect(() => {
-    setHasManagingPermission(checkPerms(user, "services", true));
+    setHasManagingPerms(checkPerms(user, "services", true));
   }, [user]);
 
-  const handleAddService = () => {
-    if (!hasManagingPermission) return;
+  const handleServiceAddSuccess = (service: any) => {
+    setServices((prev) => [...prev, service]);
   };
 
   return (
@@ -50,9 +50,12 @@ const ServicesList: FC<ServicesListProps> = () => {
         }}
       >
         <h1 className="font-medium text-3xl">Services</h1>
-        {hasManagingPermission && (
+        {hasManagingPerms && (
           <>
-            <AddService handleAddService={handleAddService} />
+            <AddService
+              handleSuccess={handleServiceAddSuccess}
+              hasManagingPerms={hasManagingPerms}
+            />
           </>
         )}
       </div>
@@ -92,7 +95,7 @@ const ServicesList: FC<ServicesListProps> = () => {
                 </SkeletonLoading>
               </div>
 
-              {/* {hasManagingPermission && (
+              {/* {hasManagingPerms && (
                 <SkeletonLoading width="30px" loadingCondition={isLoading}>
                   <div className="font-medium max-w-[85%] truncate ml-2">
                     {service.name}

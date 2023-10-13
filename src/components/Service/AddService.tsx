@@ -6,17 +6,57 @@ import Button from "../../components/general/Button";
 import { Modal } from "../../components/general/Modal";
 import FileInput from "../../components/general/FileInput";
 import LabeledInput from "../../components/general/LabeledInput";
+import { useUserContext } from "../../contexts/UserContext";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 interface AddServiceProps {
-  handleAddService: () => void;
+  hasManagingPerms: boolean;
+  handleSuccess?: (data: any) => any;
 }
 
-const AddService: FC<AddServiceProps> = ({ handleAddService }) => {
+const AddService: FC<AddServiceProps> = ({
+  hasManagingPerms,
+  handleSuccess,
+}) => {
+  const { fetchConfig } = useUserContext();
   const [serviceModalOpen, setServiceModalOpen] = useState(false);
   const [newServicePicture, setNewServicePicture] = useState<any>(null);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [serviceName, setServiceName] = useState("");
   const [serviceDescription, setServiceDescription] = useState("");
+
+  const [errors, setErrors] = useState<any>({
+    name: null,
+  });
+
+  const handleAddService = async () => {
+    if (!hasManagingPerms) return setServiceModalOpen(false);
+    if (!serviceName) {
+      setErrors({
+        name: "name field is required",
+      });
+      return;
+    }
+    setIsLoading(true);
+    try {
+      const { data } = await axios.post(
+        "http://localhost:5000/api/service",
+        {
+          name: serviceName,
+          description: serviceDescription,
+        },
+        fetchConfig
+      );
+      handleSuccess && handleSuccess(data);
+      setServiceModalOpen(false);
+    } catch (error) {
+      toast.error("An error occurred while creating the service");
+    }
+    setIsLoading(false);
+  };
 
   return (
     <>
@@ -60,6 +100,7 @@ const AddService: FC<AddServiceProps> = ({ handleAddService }) => {
               <LabeledInput
                 placeholder="Service Name"
                 value={serviceName}
+                error={errors.name}
                 setValue={setServiceName}
                 autoFocus
               />
@@ -73,6 +114,18 @@ const AddService: FC<AddServiceProps> = ({ handleAddService }) => {
               onChange={(e) => setServiceDescription(e.target?.value)}
             />
           </div>
+        </div>
+        <div className="flex justify-start items-center  py-6 px-6">
+          <Button isLoading={isLoading} onClick={handleAddService}>
+            Create Service
+          </Button>
+          <Button
+            onClick={() => setServiceModalOpen(false)}
+            color="secondary"
+            className="ml-4"
+          >
+            Cancel
+          </Button>
         </div>
       </Modal>
     </>

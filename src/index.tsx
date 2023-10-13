@@ -4,6 +4,7 @@ import App from "./App";
 import UserProvider from "./contexts/UserContext";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
+import{ Toaster } from "react-hot-toast";
 
 import "./index.css";
 
@@ -15,7 +16,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <UserProvider>
-        <App />
+      <Toaster />
+      <App />
     </UserProvider>
   </React.StrictMode>
 );

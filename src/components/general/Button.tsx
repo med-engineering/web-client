@@ -5,6 +5,7 @@ import ActivityIndicator from "../loaders/ActivityIndicator";
 interface ButtonProps {
   children: ReactNode;
   width?: "full" | "max";
+  className?: string;
   color?: "primary" | "secondary";
   isLoading?: boolean;
   isDisabled?: boolean;
@@ -14,11 +15,21 @@ interface ButtonProps {
 const Button: FC<ButtonProps> = ({
   children,
   width = "max",
+  className,
   color = "primary",
   isLoading = false,
   isDisabled = false,
   onClick,
 }) => {
+  let buttonBg = "bg-primary";
+  switch (color) {
+    case "primary":
+      buttonBg = "bg-primary";
+      break;
+    case "secondary":
+      buttonBg = "bg-secondary";
+      break;
+  }
   return (
     <button
       disabled={isDisabled}
@@ -26,11 +37,11 @@ const Button: FC<ButtonProps> = ({
         width: width === "max" ? "max-content" : "100%",
       }}
       onClick={isLoading || isDisabled ? undefined : onClick}
-      className={`bg-primary relative px-6 ${
+      className={`${buttonBg} relative px-6 ${
         isDisabled || isLoading
           ? "cursor-not-allowed opacity-90"
           : "cursor-pointer hover:opacity-90 active:scale-[.99]"
-      } duration-200 py-[10px] rounded-md mt-3`}
+      } duration-200 py-[10px] rounded-md ${className}`}
     >
       <div
         style={{

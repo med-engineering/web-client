@@ -9,7 +9,7 @@ module.exports = {
           "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
       },
       gridTemplateColumns: {
-        "cards": "repeat(auto-fit, minmax(300px, 1fr))",
+        cards: "repeat(auto-fit, minmax(300px, 1fr))",
       },
       screens: {
         vsm: "370px",
@@ -21,6 +21,7 @@ module.exports = {
       },
       colors: {
         primary: "#008bd1",
+        secondary: "#1f2937",
         "dark-1": "#0e1016",
         "dark-2": "#151922",
         "dark-2-lighter": "#1a1f2a",
