@@ -1,4 +1,3 @@
-"use client";
 import moment from "moment";
 import { CSSProperties, FC } from "react";
 import {

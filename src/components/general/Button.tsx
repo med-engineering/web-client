@@ -1,4 +1,3 @@
-"use client";
 import { FC, ReactNode } from "react";
 import ActivityIndicator from "../loaders/ActivityIndicator";
 
@@ -6,7 +5,7 @@ interface ButtonProps {
   children: ReactNode;
   width?: "full" | "max";
   className?: string;
-  color?: "primary" | "secondary";
+  color?: "primary" | "secondary" | "danger";
   isLoading?: boolean;
   isDisabled?: boolean;
   onClick?: () => void;
@@ -21,13 +20,16 @@ const Button: FC<ButtonProps> = ({
   isDisabled = false,
   onClick,
 }) => {
-  let buttonBg = "bg-primary";
+  let buttonBg = `bg-primary`;
   switch (color) {
     case "primary":
       buttonBg = "bg-primary";
       break;
     case "secondary":
       buttonBg = "bg-secondary";
+      break;
+    case "danger":
+      buttonBg = "bg-danger";
       break;
   }
   return (
@@ -41,12 +43,13 @@ const Button: FC<ButtonProps> = ({
         isDisabled || isLoading
           ? "cursor-not-allowed opacity-90"
           : "cursor-pointer hover:opacity-90 active:scale-[.99]"
-      } duration-200 py-[10px] rounded-md ${className}`}
+      } duration-200 py-[10px] rounded-md flex items-center justify-center ${className}`}
     >
       <div
         style={{
           visibility: isLoading ? "hidden" : "visible",
         }}
+        className="w-max"
       >
         {children}
       </div>

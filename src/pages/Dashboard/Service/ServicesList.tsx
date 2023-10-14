@@ -2,9 +2,8 @@ import axios from "axios";
 import { FC, useEffect, useState } from "react";
 import { useUserContext } from "../../../contexts/UserContext";
 import checkPerms from "../../../utils/permissions.util";
-import SkeletonLoading from "../../../components/general/SkeletonLoading";
-import { Link } from "react-router-dom";
 import AddService from "../../../components/Service/AddService";
+import ServiceCard from "../../../components/Service/ServiceCard";
 
 const CARDS_LOADING_ARRAY = Array.from(Array(16).keys());
 
@@ -31,7 +30,7 @@ const ServicesList: FC<ServicesListProps> = () => {
       setIsLoading(false);
     };
     handleFetch();
-  }, []);
+  }, [fetchConfig]);
 
   useEffect(() => {
     setHasManagingPerms(checkPerms(user, "services", true));
@@ -39,6 +38,12 @@ const ServicesList: FC<ServicesListProps> = () => {
 
   const handleServiceAddSuccess = (service: any) => {
     setServices((prev) => [...prev, service]);
+  };
+
+  const handleServiceDelete = (serviceID: string) => {
+    setServices((prev) =>
+      prev.filter((service: any) => service.id !== serviceID)
+    );
   };
 
   return (
@@ -62,47 +67,13 @@ const ServicesList: FC<ServicesListProps> = () => {
       <div className="mt-12 grid grid-cols-cards gap-4">
         {services.map((service: any, index) => {
           return (
-            <div
-              className="bg-dark-2-lighter flex items-center py-4 px-3 rounded-[4px] relative"
+            <ServiceCard
               key={`service-${index}`}
-            >
-              {!isLoading && (
-                <Link
-                  className="absolute w-full h-full bg-transparent cursor-pointer"
-                  to={`/dashboard/service/${service.id}`}
-                />
-              )}
-              <SkeletonLoading
-                width="50px"
-                isCircle
-                loadingCondition={isLoading}
-              >
-                <img
-                  src={service.thumbnail}
-                  alt={service.name}
-                  className="rounded-full min-w-[50px] max-w-[50px] min-h-[50px] max-h-[50px]"
-                />
-              </SkeletonLoading>
-              <div className="ml-3 flex-1">
-                <SkeletonLoading
-                  width="75%"
-                  height="15px"
-                  loadingCondition={isLoading}
-                >
-                  <div className="font-medium max-w-[85%] truncate ml-2">
-                    {service.name}
-                  </div>
-                </SkeletonLoading>
-              </div>
-
-              {/* {hasManagingPerms && (
-                <SkeletonLoading width="30px" loadingCondition={isLoading}>
-                  <div className="font-medium max-w-[85%] truncate ml-2">
-                    {service.name}
-                  </div>
-                </SkeletonLoading>
-              )} */}
-            </div>
+              isLoading={isLoading}
+              service={service}
+              hasManagingPerms={hasManagingPerms}
+              onDeleteCallback={handleServiceDelete}
+            />
           );
         })}
       </div>

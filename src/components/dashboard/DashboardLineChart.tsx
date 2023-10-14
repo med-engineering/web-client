@@ -1,4 +1,3 @@
-"use client";
 import moment from "moment";
 import { CSSProperties, FC } from "react";
 import {
@@ -73,7 +72,7 @@ const DashboardLineChart: FC<DashboardLineChartProps> = ({
           >
             <XAxis dataKey="name" />
             <YAxis />
-            <Tooltip labelStyle={{ color: "#111" }} />
+            <Tooltip contentStyle={{ color: "#111" }} labelStyle={{ color: "#111" }} />
             <Area type="monotone" dataKey="stat" stroke={color} fill={color} />
           </AreaChart>
         </ResponsiveContainer>

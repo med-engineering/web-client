@@ -1,4 +1,3 @@
-"use client";
 import { CSSProperties, FC } from "react";
 import {
   Tooltip,
@@ -35,7 +34,7 @@ const DashboardPieChart: FC<DashboardPieChartProps> = ({
               bottom: 0,
             }}
           >
-            <Tooltip labelStyle={{ color: "#111" }} />
+            <Tooltip labelStyle={{ color: "#111" }} contentStyle={{ color: "#111" }} itemStyle={{ color: "#111" }}/>
             <Pie
               className="w-[80%]"
               data={chartData}

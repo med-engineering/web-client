@@ -57,9 +57,8 @@ const FileInput: FC<FileInputProps> = ({
   const handleSelectedFiles = async (files: FileList) => {
     if (onFileSelected) {
       const file = await handleFileRead(files);
-      const formDataFile = files[0];
-      const displayFile = files[0];
-      onFileSelected(file, file);
+      const fileData = files[0];
+      onFileSelected(fileData, file);
     }
   };
 

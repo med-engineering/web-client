@@ -1,4 +1,3 @@
-"use client";
 import { FC } from "react";
 import LoginForm from "../../components/login/LoginForm";
 import LoginInfo from "../../components/login/LoginInfo";

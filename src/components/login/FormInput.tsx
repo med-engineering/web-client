@@ -1,4 +1,3 @@
-"use client";
 import {
   Dispatch,
   FC,
@@ -64,12 +63,16 @@ const FormInput: FC<FormInputProps> = ({
           {placeholder}
         </div>
       </div>
-      <div
-        className={`mt-1 mb-1 ${
-          error ? "text-red-500" : "text-gray-2"
-        } text-[13px] font-semibold`}
-      >
-        {error && <span>ERROR - {error}</span>}
+      <div className={`mt-1 mb-1`}>
+        {error && (
+          <span
+            className={` ${
+              error ? "text-red-500" : "text-gray-2"
+            } text-[13px] font-semibold`}
+          >
+            ERROR - {error}
+          </span>
+        )}
       </div>
     </div>
   );

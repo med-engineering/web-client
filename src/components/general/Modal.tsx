@@ -1,23 +1,24 @@
-import React, {
-  CSSProperties,
-  FC,
-  ReactNode,
-  useEffect,
-  useState,
-} from "react";
+import { CSSProperties, FC, ReactNode, useEffect, useState } from "react";
 import { motion, AnimatePresence, MotionStyle } from "framer-motion";
 import ReactDOM from "react-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+import Button from "./Button";
 
 interface ModalProps {
-  children: ReactNode;
   isOpen: boolean;
   label: string;
+  children?: ReactNode;
   maxWidth?: string;
   modalStyle?: CSSProperties;
   onRequestClose: () => void;
+  useFooter?: boolean;
   isConfirmation?: boolean | undefined;
+  confirmationDialogue?: string;
+  confirmationButtonColor?: "primary" | "secondary" | "danger";
+  confirmationButtonTitle?: string;
+  confirmationButtonLoading?: boolean;
+  onConfirm?: () => void;
 }
 
 const Modal: FC<ModalProps> = ({
@@ -27,7 +28,13 @@ const Modal: FC<ModalProps> = ({
   maxWidth,
   modalStyle,
   onRequestClose,
+  useFooter,
   isConfirmation,
+  confirmationDialogue,
+  confirmationButtonColor = "primary",
+  confirmationButtonTitle,
+  confirmationButtonLoading,
+  onConfirm,
 }) => {
   useEffect(() => {
     const handleEscPress = (event: KeyboardEvent) => {
@@ -53,7 +60,6 @@ const Modal: FC<ModalProps> = ({
   }, []);
 
   if (!rootElement) {
-    console.error("Root element with id 'root' not found.");
     return null;
   }
 
@@ -62,7 +68,7 @@ const Modal: FC<ModalProps> = ({
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="bg-dark-2"
+            className="bg-dark-2 relative"
             initial={{
               opacity: 0,
               scale: 0.7,
@@ -105,7 +111,53 @@ const Modal: FC<ModalProps> = ({
                 </button>
               </div>
             </div>
-            <div className="mt-3">{children}</div>
+            {isConfirmation ? (
+              <>
+                <div className="py-3 px-4 break-words">
+                  {confirmationDialogue}
+                </div>
+                <div className="mt-1 flex items-center justify-end py-4">
+                  <Button color="secondary" onClick={onRequestClose}>
+                    Never Mind
+                  </Button>
+                  <Button
+                    className="ml-4"
+                    color={confirmationButtonColor}
+                    isLoading={confirmationButtonLoading}
+                    onClick={onConfirm}
+                  >
+                    {confirmationButtonTitle}
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="py-2 max-h-[70vh] relative overflow-y-auto">
+                  {children}
+                </div>
+                {useFooter && (
+                  <div
+                    style={{ borderTopStyle: "solid" }}
+                    className=" border-t border-gray-500 flex justify-start items-center shadow-xl bg-dark-2 w-full h-[100px] px-6"
+                  >
+                    <Button
+                      isLoading={confirmationButtonLoading}
+                      onClick={onConfirm}
+                      color={confirmationButtonColor}
+                    >
+                      {confirmationButtonTitle}
+                    </Button>
+                    <Button
+                      onClick={onRequestClose}
+                      color="secondary"
+                      className="ml-4"
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                )}
+              </>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
@@ -152,6 +204,8 @@ const ModalStyles = {
       height: "max-content",
       maxHeight: "700px",
       padding: "0 15px",
+      borderRadius: "9px",
+      overflow: "hidden",
       border: "none",
       zIndex: 1001,
     } as MotionStyle,
@@ -182,6 +236,7 @@ const ModalStyles = {
       maxHeight: "700px",
       padding: "0",
       borderRadius: "9px",
+      overflow: "hidden",
       border: "none",
       zIndex: 1001,
     } as MotionStyle,

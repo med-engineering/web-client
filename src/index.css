@@ -4,19 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-  text-decoration: none;
-  list-style: none;
-  outline: none;
-  border: none;
-  font-family: "Open Sans", "Ubuntu";
-}
-
 :root {
   --primary: #008bd1;
   --dark-1: #0e1016;
@@ -28,6 +15,29 @@
   --gray-3: #5e6064;
   --gray-4: #3f4145;
   --gray-5: #2e3033;
+  --contexify-menu-bgColor: #293346;
+  --contexify-separator-color: #4c4c4c;
+  --contexify-item-color: #fff;
+  --contexify-activeItem-color: #fff;
+  --contexify-activeItem-bgColor: #008bd1;
+  --contexify-rightSlot-color: #6f6e77;
+  --contexify-activeRightSlot-color: #fff;
+  --contexify-arrow-color: #6f6e77;
+  --contexify-activeArrow-color: #fff;
+}
+
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  text-decoration: none;
+  list-style: none;
+  outline: none;
+  border: none;
+  font-family: "Open Sans", "Ubuntu" !important;
+  color: var(--gray-1);
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -47,14 +57,49 @@ a {
 }
 
 body {
-  background-color: var(--dark-1);
+  background-color: var(--dark-1) !important;
   color: var(--gray-1);
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   min-height: 100vh;
+  pointer-events: auto !important;
 }
 
 main {
   margin-top: 3.5rem;
+}
+
+.rt-DropdownMenuViewport {
+  padding: 8px 0 !important;
+  background: var(--dark-3) !important;
+  outline: none !important;
+  border: none !important;
+}
+.rt-DropdownMenuItem {
+  border-radius: 0 !important;
+  padding: 21px 24px !important;
+  font-size: 16px !important;
+  cursor: pointer !important;
+}
+.rt-DropdownMenuItem[data-accent-color="red"] {
+  color: #ff2a2a !important;
+}
+.rt-DropdownMenuItem[data-accent-color="red"][data-highlighted] {
+  background-color: rgba(237, 76, 92, 0.384) !important;
+  color: #eeeeee !important;
+}
+.rt-DropdownMenuItem[data-accent-color="red"]:hover {
+  background-color: rgba(237, 76, 92, 0.384) !important;
+  color: #eeeeee !important;
+}
+.rt-BaseMenuSeparator {
+  background-color: #6a6a6a !important;
+  margin: 8px 0 !important;
+}
+.rt-DropdownMenuItem:hover {
+  background-color: rgb(48, 60, 83);
+}
+.rt-DropdownMenuItem[data-highlighted] {
+  background-color: rgb(48, 60, 83);
 }
 
 ::-webkit-scrollbar {

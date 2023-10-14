@@ -6,14 +6,26 @@ import DashboardLineChart from "../../../components/dashboard/DashboardLineChart
 import DashboardBarsChart from "../../../components/dashboard/DashboardBarsChart";
 import DashboardPieChart from "../../../components/dashboard/DashboardPieChart";
 import AuthChecker from "../../../components/Auth/AuthChecker";
+import { useServiceContext } from "../../../contexts/ServiceContext";
 
 const Stats: FC = () => {
+  const { service, isServiceFetch } = useServiceContext();
   return (
     <div className={`${pageSpacings}`}>
       <div className="grid grid-cols-cards gap-6 mt-4">
-        <StateCard name="State 1 (24h)" value={34} icon={machineIcon} />
-        <StateCard name="State 1 " value={234} icon={machineIcon} />
-        <StateCard name="State 2" value={64} icon={machineIcon} />
+        <StateCard
+          name="Machines"
+          value={service?.machines?.length ?? 0}
+          isLoading={isServiceFetch}
+          icon={machineIcon}
+        />
+        <StateCard
+          name="Rooms"
+          value={service?.rooms?.length ?? 0}
+          isLoading={isServiceFetch}
+          icon={machineIcon}
+        />
+        <StateCard name="State 3" value={64} icon={machineIcon} />
       </div>
       <div className="mt-7 w-full">
         <div className="grid grid-cols-2 w-full gap-3">

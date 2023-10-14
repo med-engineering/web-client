@@ -4,9 +4,12 @@ import App from "./App";
 import UserProvider from "./contexts/UserContext";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
-import{ Toaster } from "react-hot-toast";
-
+import { Toaster } from "react-hot-toast";
+import { Theme } from "@radix-ui/themes";
 import "./index.css";
+
+import "@radix-ui/themes/styles.css";
+import ServiceProvider from "./contexts/ServiceContext";
 
 config.autoAddCss = false;
 const root = ReactDOM.createRoot(
@@ -16,8 +19,12 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <UserProvider>
-      <Toaster />
-      <App />
+      <ServiceProvider>
+        <Toaster />
+        <Theme color="#ffffff">
+          <App />
+        </Theme>
+      </ServiceProvider>
     </UserProvider>
   </React.StrictMode>
 );

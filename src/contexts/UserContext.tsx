@@ -1,4 +1,3 @@
-"use client";
 import axios from "axios";
 import {
   createContext,
@@ -64,11 +63,11 @@ const UserProvider: FC<UserProviderProps> = ({ children }) => {
     if (!token) {
       setIsFirstUserFetch(false);
       setUser(null);
+      window.localStorage.removeItem("token");
       return;
     }
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem("token", token);
-    }
+
+    window.localStorage.setItem("token", token);
     setFetchConfig({
       headers: {
         Authorization: `Bearer ${token}`,
