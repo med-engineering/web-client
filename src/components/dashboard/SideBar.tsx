@@ -7,15 +7,17 @@ import { useLocation } from "react-router-dom";
 import { useServiceContext } from "../../contexts/ServiceContext";
 import SkeletonLoading from "../general/SkeletonLoading";
 
+import { motion } from "framer-motion";
+
 interface SideBarProps {}
 
 const SideBar: FC<SideBarProps> = () => {
-  const { serviceID, service, isServiceFetch } = useServiceContext();
+  const { service, isServiceFetch } = useServiceContext();
   const location = useLocation();
   const pathname = location.pathname;
 
   return (
-    <nav className="fixed left-0 bottom-0 h-[calc(100vh-60px)] w-[300px] bg-dark-2-lighter duration-200">
+    <nav className="fixed sidebar:left-0 -left-[300px] bottom-0 h-[calc(100vh-60px)] w-[300px] bg-dark-2-lighter duration-200">
       <div className="flex flex-col justify-center items-center mt-6">
         <SkeletonLoading
           loadingCondition={isServiceFetch}
@@ -39,7 +41,14 @@ const SideBar: FC<SideBarProps> = () => {
       </div>
       <div className="mt-6 flex flex-col gap-3 px-2">
         {sidebarOptions.map((option) => {
-          const fullPath = option.route.replace(/:serviceID:/gi, serviceID!);
+          const fullPath = option.route.replace(
+            /:serviceID:/gi,
+            service?.id as string
+          );
+          const isActive =
+            option.matching === "start"
+              ? pathname.startsWith(fullPath)
+              : pathname === fullPath;
           return (
             <SkeletonLoading
               loadingCondition={isServiceFetch}
@@ -50,17 +59,28 @@ const SideBar: FC<SideBarProps> = () => {
             >
               <Link
                 to={fullPath}
-                className={`flex items-center justify-start gap-2 py-2 px-1 rounded-md duration-100 cursor-pointer ${
-                  pathname === fullPath
-                    ? "bg-primary"
-                    : "hover:bg-gray-700 active:bg-gray-600"
+                className={`relative flex items-center justify-start gap-2 py-2 px-1 rounded-md duration-100 cursor-pointer ${
+                  isActive ? "" : "hover:bg-gray-700 active:bg-gray-600"
                 }`}
               >
+                {isActive && (
+                  <motion.div
+                    transition={{
+                      type: "spring",
+                      duration: 20,
+                    }}
+                    layoutId="sidebar-hover"
+                    style={{
+                      borderRadius: "6px",
+                    }}
+                    className="absolute rounded-full inset-0 bg-primary"
+                  ></motion.div>
+                )}
                 <FontAwesomeIcon
                   icon={option.icon}
-                  className="w-[30px] text-[18px]"
+                  className="w-[30px] text-[18px] relative z-10"
                 />
-                <p className="text-[17px] capitalize">{option.name}</p>
+                <p className="text-[17px] capitalize relative z-10">{option.name}</p>
               </Link>
             </SkeletonLoading>
           );

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Routes, Route } from "react-router-dom";
-import NavBar from "../components/dashboard/NavBar";
+import NavBar from '../components/dashboard/NavBar'
 import ServicesList from "./Dashboard/Service/ServicesList";
 import Services from "./Dashboard/Services";
 
@@ -14,7 +14,7 @@ const DashboardPage: FC = () => {
         </Routes>
       </main>
       <Routes>
-        <Route path="/service/*" element={<Services />} />
+        <Route path="/services/*" element={<Services />} />
       </Routes>
     </>
   );

@@ -10,15 +10,15 @@ import toast from "react-hot-toast";
 import { Modal } from "../general/Modal";
 import copyText from "../../utils/copy.util";
 
-interface ServiceCardProps {
-  service: any;
+interface RoomCardProps {
+  room: any;
   isLoading: boolean;
   hasManagingPerms: boolean;
   onDeleteCallback?: (id: string) => void;
 }
 
-const ServiceCard: FC<ServiceCardProps> = ({
-  service,
+const RoomCard: FC<RoomCardProps> = ({
+  room,
   isLoading,
   hasManagingPerms,
   onDeleteCallback,
@@ -32,26 +32,28 @@ const ServiceCard: FC<ServiceCardProps> = ({
 
   const handleDelete = async () => {
     try {
-      const serviceID: string = service?.id ?? null;
-      if (!serviceID) throw new Error("invalid service id!");
+      const roomID: string = room?.id ?? null;
+      if (!roomID) throw new Error("invalid room id!");
       setIsDeleteLoading(true);
       await axios.delete(
-        `http://localhost:5000/api/service/${serviceID}`,
+        `http://localhost:5000/api/service/${room?.service?.id}/rooms/${room?.id}`,
         fetchConfig
       );
-      if (onDeleteCallback) onDeleteCallback(serviceID);
+      if (onDeleteCallback) onDeleteCallback(roomID);
       setIsDeleteModalOpen(false);
-      toast.success("service has been deleted");
+      toast.success("room has been deleted");
     } catch (error: any) {
-      const errorMessage = error?.response?.data?.message ?? error.message;
-      toast.error(errorMessage);
+        const errorMessage = error?.response?.data?.message ?? error.message;
+        toast.error(errorMessage);
     }
-    setIsDeleteLoading(false);
+        setIsDeleteLoading(false);
   };
 
   const handleMenuNavigate = (e: MouseEvent, path: string) => {
     e.stopPropagation();
-    navigate(`/dashboard/services/${service?.id}/${path}`);
+    navigate(
+      `/dashboard/services/${room?.service?.id}/rooms/${room?.id}/${path}`
+    );
   };
 
   const handleDeleteModalOpen = (e: MouseEvent) => {
@@ -62,7 +64,7 @@ const ServiceCard: FC<ServiceCardProps> = ({
   return (
     <>
       <button
-        onClick={() => navigate(`/dashboard/services/${service.id}`)}
+        onClick={(e) => handleMenuNavigate(e, "")}
         className="bg-dark-2-lighter overflow-hidden flex justify-start text-start items-center py-4 px-3 rounded-[4px] relative"
         style={{
           pointerEvents: isLoading ? "none" : "auto",
@@ -74,8 +76,8 @@ const ServiceCard: FC<ServiceCardProps> = ({
           loadingCondition={isLoading}
         >
           <img
-            src={service.thumbnail}
-            alt={service.name}
+            src={room?.thumbnail}
+            alt={room?.name}
             className="rounded-[10px] min-w-[50px] max-w-[50px] min-h-[50px] max-h-[50px]"
           />
         </SkeletonLoading>
@@ -86,7 +88,7 @@ const ServiceCard: FC<ServiceCardProps> = ({
             loadingCondition={isLoading}
           >
             <div className="font-medium max-w-[85%] truncate ml-2">
-              {service.name}
+              {room?.name}
             </div>
           </SkeletonLoading>
         </div>
@@ -109,11 +111,8 @@ const ServiceCard: FC<ServiceCardProps> = ({
                   marginRight: "20px",
                 }}
               >
-                <DropdownMenu.Item onClick={(e) => handleMenuNavigate(e, "")}>
-                  Stats
-                </DropdownMenu.Item>
                 <DropdownMenu.Item
-                  onClick={(e) => handleMenuNavigate(e, "rooms")}
+                  onClick={(e) => handleMenuNavigate(e, "machines")}
                 >
                   Rooms
                 </DropdownMenu.Item>
@@ -126,10 +125,10 @@ const ServiceCard: FC<ServiceCardProps> = ({
                 <DropdownMenu.Item
                   onClick={(e) => {
                     e?.stopPropagation();
-                    copyText(service?.id);
+                    copyText(room?.id);
                   }}
                 >
-                  Copy service ID
+                  Copy room ID
                 </DropdownMenu.Item>
                 <DropdownMenu.Separator />
                 <DropdownMenu.Item onClick={handleDeleteModalOpen} color="red">
@@ -143,11 +142,11 @@ const ServiceCard: FC<ServiceCardProps> = ({
       <>
         <Modal
           isOpen={isDeleteModalOpen}
-          label="Delete service?"
+          label="Delete room?"
           onRequestClose={() => setIsDeleteModalOpen(false)}
           isConfirmation
           confirmationButtonColor="danger"
-          confirmationDialogue={`are you sure you want to delete this service (${service?.name})`}
+          confirmationDialogue={`are you sure you want to delete this room (${room?.name})`}
           confirmationButtonLoading={isDeleteLoading}
           confirmationButtonTitle="Delete"
           onConfirm={handleDelete}
@@ -157,4 +156,4 @@ const ServiceCard: FC<ServiceCardProps> = ({
   );
 };
 
-export default ServiceCard;
+export default RoomCard;

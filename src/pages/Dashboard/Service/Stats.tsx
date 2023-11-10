@@ -28,7 +28,7 @@ const Stats: FC = () => {
         <StateCard name="State 3" value={64} icon={machineIcon} />
       </div>
       <div className="mt-7 w-full">
-        <div className="grid grid-cols-2 w-full gap-3">
+        <div className="grid md:grid-cols-2 grid-cols-1 w-full gap-3">
           <div className="px-2 py-2 bg-dark-2 rounded-md">
             <h1 className="text-xl mb-4 ml-2 font-extralight">State 1 (7d)</h1>
             <DashboardLineChart
@@ -54,7 +54,7 @@ const Stats: FC = () => {
             color={"#113be3"}
           />
         </div>{" "}
-        <div className="grid grid-cols-2 w-full gap-3 mt-3">
+        <div className="grid md:grid-cols-2 grid-cols-1 w-full gap-3 mt-3">
           <div className="px-2 py-2 bg-dark-2 rounded-md">
             <h1 className="text-xl mb-4 ml-2 font-extralight">State 4 (7d)</h1>
             <DashboardLineChart

@@ -3,37 +3,31 @@ import { useParams } from "react-router-dom";
 import { useServiceContext } from "../../../contexts/ServiceContext";
 import axios from "axios";
 import { useUserContext } from "../../../contexts/UserContext";
+import { useRoomContext } from "../../../contexts/RoomContext";
 
 const SetService: FC = () => {
-  const { service, setService, setIsServiceFetch } = useServiceContext();
+  const { setRoom, setIsRoomFetch } = useRoomContext();
   const { fetchConfig } = useUserContext();
 
   const params = useParams();
 
   const handleFetchService = async () => {
-    setIsServiceFetch(true);
+    setIsRoomFetch(true);
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/service/${params?.serviceID}`,
+        `http://localhost:5000/api/service/${params?.serviceID}/room/${params?.roomID}`,
         fetchConfig
       );
-      setService(data);
+      setRoom(data);
     } catch (error: any) {
-      setService(null);
+      setRoom(null);
     }
-    setIsServiceFetch(false);
+    setIsRoomFetch(false);
   };
 
   useEffect(() => {
-    if (!params?.serviceID) {
-      setIsServiceFetch(true);
-      return;
-    }
-    if (params?.serviceID === service?.id) return;
-    console.log(params);
-
     handleFetchService();
-  }, [params?.serviceID, fetchConfig]);
+  }, [params?.serviceID, params?.roomID, fetchConfig]);
   return <></>;
 };
 

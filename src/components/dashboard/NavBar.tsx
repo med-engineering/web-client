@@ -13,7 +13,7 @@ const NavBar: FC<NavBarProps> = () => {
         <div className="w-full h-full flex items-center px-12">
           <Routes>
             <Route
-              path="/service/:id/*"
+              path="/services/:id/*"
               element={
                 <div className="flex-1">
                   <Link
@@ -29,7 +29,9 @@ const NavBar: FC<NavBarProps> = () => {
               }
             />
           </Routes>
-          <h2 className="w-max font-semibold text-gray-300 capitalize text-xl">bio eng</h2>
+          <h2 className="w-max font-semibold text-gray-300 capitalize text-xl">
+            bio eng
+          </h2>
           <div className="flex items-center justify-end flex-1 gap-2 h-full">
             <div className="hover:bg-gray-800 rounded-[4px] flex items-center justify-center w-[40px] h-[40px] cursor-pointer">
               <FontAwesomeIcon icon={faBell} fontSize={"19px"} />

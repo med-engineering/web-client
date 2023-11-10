@@ -13,6 +13,7 @@ module.exports = {
       },
       screens: {
         vsm: "370px",
+        sidebar: "800px",
         xlg: "1300px",
       },
       width: {

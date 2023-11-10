@@ -14,13 +14,14 @@ type SidebarOption = {
   name: string;
   icon: IconDefinition;
   route: string;
+  matching?: "start" | "full";
 };
 
 const sidebarOptions: SidebarOption[] = [
   {
     name: "Overview",
     icon: faEye,
-    route: `/dashboard/service/:serviceID:`,
+    route: `/dashboard/services/:serviceID:`,
   },
   // {
   //   name: "News",
@@ -30,33 +31,40 @@ const sidebarOptions: SidebarOption[] = [
   {
     name: "Rooms",
     icon: faScrewdriver,
-    route: "/dashboard/service/:serviceID:/equipments",
+    route: "/dashboard/services/:serviceID:/rooms",
+    matching: "start",
   },
   {
     name: "Tags",
     icon: faTags,
-    route: "/dashboard/service/:serviceID:/tags",
+    route: "/dashboard/services/:serviceID:/tags",
   },
   {
     name: "Check list",
     icon: faCheckSquare,
-    route: "/dashboard/service/:serviceID:/checklist",
+    route: "/dashboard/services/:serviceID:/checklist",
   },
   {
     name: "colleagues",
     icon: faUsers,
-    route: "/dashboard/service/:serviceID:/colleagues",
+    route: "/dashboard/services/:serviceID:/colleagues",
   },
   {
     name: "Calendar",
     icon: faCalendarAlt,
-    route: "/dashboard/service/:serviceID:/calendar",
+    route: "/dashboard/services/:serviceID:/calendar",
   },
   {
     name: "Settings",
     icon: faGear,
-    route: "/dashboard/service/:serviceID:/settings",
+    route: "/dashboard/services/:serviceID:/settings",
   },
 ];
+
+
+
+
+
+
 
 export { sidebarOptions };

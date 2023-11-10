@@ -7,17 +7,17 @@ import InvalidService from "./Service/InvalidService";
 import SetService from "./Service/SetService";
 import ServiceSettings from "./Service/ServiceSettings";
 import PreLoader from "../../components/loaders/PreLoader";
+import Rooms from "./Rooms";
+import MainContainer from "../../components/dashboard/MainContainer";
 
 const Services: FC = () => {
   const { isServiceFetch, service } = useServiceContext();
-
-  console.log(isServiceFetch || (!isServiceFetch && service));
 
   return (
     <>
       <Routes>
         <Route
-          path="/:id/*"
+          path="/:serviceID/*"
           element={
             <>
               <SetService />
@@ -32,19 +32,19 @@ const Services: FC = () => {
       </Routes>
 
       {!isServiceFetch && service ? (
-        <main className="main-services fixed w-dashboard-content left-[300px] bottom-0 h-[calc(100vh-60px)] overflow-auto sm:px-4 px-2 py-3">
+        <MainContainer>
           <Routes>
-            <Route path="/:id" element={<Stats />} />
-            <Route path="/:id/settings" element={<ServiceSettings />} />
+            <Route path="/:serviceID" element={<Stats />} />
+            <Route path="/:serviceID/rooms/*" element={<Rooms />} />
+            <Route path="/:serviceID/settings" element={<ServiceSettings />} />
           </Routes>
-        </main>
+        </MainContainer>
       ) : (
-        isServiceFetch &&
-        service && (
-          <main className="main-services fixed w-dashboard-content left-[300px] bottom-0 h-[calc(100vh-60px)] overflow-auto sm:px-4 px-2 py-3">
+        isServiceFetch && (
+          <MainContainer>
             <Routes>
               <Route
-                path="/:id/*"
+                path="/:serviceID/*"
                 element={
                   <>
                     <div className="h-full w-full flex items-center justify-center">
@@ -54,7 +54,7 @@ const Services: FC = () => {
                 }
               />
             </Routes>
-          </main>
+          </MainContainer>
         )
       )}
     </>
